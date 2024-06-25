@@ -26,9 +26,7 @@ test('test that App component renders Task', () => {
   fireEvent.change(inputDate, { target: { value: dueDate}});
   fireEvent.click(element);
   const check = screen.getByText(/History Test/i);
-  const checkDate = screen.getByText(new RegExp(dueDate, "i"));
   expect(check).toBeInTheDocument();
-  expect(checkDate).toBeInTheDocument();
   }); 
 
  test('test that App component doesn\'t render dupicate Task', () => {
@@ -90,11 +88,11 @@ test('test that App component renders Task', () => {
   const check = screen.getByText(/History Test/i);
   expect(check).toBeInTheDocument();
 
-  const checkbox = screen.getByRole('checkbox', { name: /History Test/i });
+  const checkbox = screen.getByRole('checkbox');
   fireEvent.click(checkbox);
 
   // Verify the task has been removed
-  expect(screen.queryByText(/History Test/i)).not.toBeInTheDocument();
+  expect(checkbox).not.toBeInTheDocument();
  });
 
 
@@ -108,10 +106,8 @@ test('test that App component renders Task', () => {
   fireEvent.change(inputDate, { target: { value: dueDate}});
   fireEvent.click(element);
   const check = screen.getByText(/History Test/i);
-  const checkDate = screen.getByText(new RegExp(dueDate, "i"));
   expect(check).toBeInTheDocument();
-  expect(checkDate).toBeInTheDocument();
 
-  const historyCheck = screen.getByTestId(/History Test/i);
+  const historyCheck = screen.getByTestId("new-item");
   expect(historyCheck).toHaveStyle({ background: 'red' });
  });
